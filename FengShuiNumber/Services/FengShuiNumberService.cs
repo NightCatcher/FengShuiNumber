@@ -58,8 +58,10 @@ namespace FengShuiNumber.Services
             var result = new List<string>();
             do
             {
-                var numbers = await _numberRepository.GetByCarrierAsync(networkCarrier);
+                var numbers = await _numberRepository.GetByCarrierAsync(networkCarrier, batchSize, index);
                 inprocessCount = numbers.Count();
+                var fengshuiNumbers = _fengShuiFilter.Filter(numbers.Select(x => x.Number));
+                result.AddRange(fengshuiNumbers);
 
                 index++;
             } while (inprocessCount == batchSize);

@@ -60,21 +60,21 @@ namespace FengShuiNumber.Services
         {
             if (_fengshuiHeaderNumbers == null)
                 throw new ArgumentNullException("feng shui headers are not set");
-            return numbers = numbers.Where(x => _fengshuiHeaderNumbers.Any(y => y.StartsWith(x)));
+            return numbers = numbers.Where(x => _fengshuiHeaderNumbers.Any(y => x.StartsWith(y)));
         }
 
         private IEnumerable<string> FilterFengshuiNiceLastPair(IEnumerable<string> numbers)
         {
             if (_fengshuiHeaderNumbers == null)
                 throw new ArgumentNullException("feng shui nice last pairs are not set");
-            return numbers = numbers.Where(x => _niceLastPairs.Any(y => y.EndsWith(x)));
+            return numbers = numbers.Where(x => _niceLastPairs.Any(y => x.EndsWith(y)));
         }
 
         private IEnumerable<string> FilterFengshuiTabooLastPair(IEnumerable<string> numbers)
         {
             if (_fengshuiHeaderNumbers == null)
                 throw new ArgumentNullException("feng shui taboo last pairs are not set");
-            return numbers = numbers.Where(x => !_tabooLastPairs.Any(y => y.EndsWith(x)));
+            return numbers = numbers.Where(x => !_tabooLastPairs.Any(y => x.EndsWith(y)));
         }
 
         private IEnumerable<string> FilterFengshuiRate(IEnumerable<string> numbers)

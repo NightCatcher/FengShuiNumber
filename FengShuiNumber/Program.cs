@@ -33,7 +33,7 @@ services.AddScoped<IFengShuiNumberService, FengShuiNumberService>();
 var serviceProvider = services.BuildServiceProvider();
 // seed data
  var dataSeeder = serviceProvider.GetRequiredService<IDataSeeder>();
-dataSeeder.SeedAsync();
+await dataSeeder.SeedAsync();
 
 // get excutor and do the job
 var numberService = serviceProvider.GetRequiredService<IFengShuiNumberService>();
