@@ -26,7 +26,10 @@ services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 services.AddScoped<IDataSeeder, DataSeeder>();
-services.AddScoped<IFengShuiFilter, FengShuiFilter>();
+services.AddScoped<IFengShuiValidator, FengShuiRateValidator>();
+services.AddScoped<IFengShuiValidator, HeaderValidator>();
+services.AddScoped<IFengShuiValidator, NiceLastPairValidator>();
+services.AddScoped<IFengShuiValidator, TabooPairValidator>();
 services.AddScoped<IPhoneNumberRepository, PhoneNumberRepository>();
 services.AddScoped<IFengShuiNumberService, FengShuiNumberService>();
 
@@ -37,12 +40,18 @@ await dataSeeder.SeedAsync();
 
 // get excutor and do the job
 var numberService = serviceProvider.GetRequiredService<IFengShuiNumberService>();
+CheckFengShuiNumber:
 var fengShuiNumbers = await numberService.GetFengShuiNumberAsync();
 if(fengShuiNumbers == null || !fengShuiNumbers.Any())
     Console.WriteLine("There no feng shui number");
 else
     Console.WriteLine(String.Join('\n', fengShuiNumbers));
 
-Console.ReadKey();
+Console.WriteLine("Try again? y/n");
+var answer = Console.ReadLine();
+if (answer.Equals("y", StringComparison.OrdinalIgnoreCase))
+    goto CheckFengShuiNumber;
+
+
 
 

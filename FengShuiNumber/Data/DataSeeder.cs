@@ -23,25 +23,25 @@ namespace FengShuiNumber.Data
             var numbers = new List<PhoneNumber>()
             {
                 //viettel
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Viettel, Number = "0864813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Viettel, Number = "0864813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Viettel, Number = "0964813545" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Viettel, Number = "0964813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Viettel, Number = "0974813566" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0864813549" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0864813549" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0964813545" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0964813549" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0974813566" },
                 //vina
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Vinaphone, Number = "0894813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Vinaphone, Number = "0894813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Vinaphone, Number = "0904813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Vinaphone, Number = "0934813549" },
+                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0894813549" },
+                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0894813549" },
+                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0904813549" },
+                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0934813549" },
                 // mobi
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Mobiphone, Number = "0884813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Mobiphone, Number = "0884813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Mobiphone, Number = "0914813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Mobiphone, Number = "0914813549" },
-                new PhoneNumber { NetworkCarrier = Constants.NetworkCarrier.Mobiphone, Number = "0914813582" },
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0884813549" },
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0884813549" },
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0914813549" },
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0914813549" },
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0916829926" },
             };
 
-            _numberRepository.AddManyAsync(numbers);
+            await _numberRepository.AddManyAsync(numbers);
         }
     }
 

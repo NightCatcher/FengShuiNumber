@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FengShuiNumber.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220504110349_initDb")]
-    partial class initDb
+    [Migration("20220505111054_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,8 +30,9 @@ namespace FengShuiNumber.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NetworkCarrier")
-                        .HasColumnType("int");
+                    b.Property<string>("NetworkCarrier")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Number")
                         .HasColumnType("longtext");

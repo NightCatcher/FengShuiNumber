@@ -28,8 +28,9 @@ namespace FengShuiNumber.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NetworkCarrier")
-                        .HasColumnType("int");
+                    b.Property<string>("NetworkCarrier")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Number")
                         .HasColumnType("longtext");
