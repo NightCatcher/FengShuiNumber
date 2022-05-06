@@ -32,6 +32,7 @@ services.AddScoped<IFengShuiFilter, FengShuiRateFilter>();
 services.AddScoped<IFengShuiFilter, HeaderNumberFilter>();
 services.AddScoped<IFengShuiFilter, NiceLastPairFilter>();
 services.AddScoped<IFengShuiFilter, TabooPairFilter>();
+services.AddScoped<IFengShuiFilter, FengshuiLengthFilter>();
 services.AddScoped<IFengShuiFilterComposer, FengShuiFilterComposer>();
 services.AddScoped<IPhoneNumberRepository, PhoneNumberRepository>();
 services.AddScoped<IFengShuiNumberService, FengShuiNumberService>();
