@@ -1,4 +1,5 @@
 ﻿using FengShuiNumber.Dtos;
+using FengShuiNumber.FengshuiFilter.Interfaces;
 using FengShuiNumber.Repositories.Interfaces;
 using FengShuiNumber.Services.Interfaces;
 using Microsoft.Extensions.Options;
@@ -8,15 +9,15 @@ namespace FengShuiNumber.Services
     public class FengShuiNumberService : IFengShuiNumberService
     {
         private readonly IPhoneNumberRepository _numberRepository;
-        private readonly IEnumerable<IFengShuiValidator> _fengShuiValidators;
+        private readonly IFengShuiFilterComposer _fengShuiFilterComposer;
         private readonly FengShuiNumberConfiguration _settings;
         private readonly int batchSize = 500;
         public FengShuiNumberService( IOptionsSnapshot<FengShuiNumberConfiguration> optionsSnapshot,
                                     IPhoneNumberRepository numberRepository,
-                                    IEnumerable<IFengShuiValidator> fengShuiValidators)
+                                    IFengShuiFilterComposer fengShuiFilterComposer)
         {
             _numberRepository = numberRepository;
-            _fengShuiValidators = fengShuiValidators;
+            _fengShuiFilterComposer = fengShuiFilterComposer;
             _settings = optionsSnapshot.Value;
         }
 
@@ -26,7 +27,6 @@ namespace FengShuiNumber.Services
             
             foreach (var item in _settings.HeadNumbers)
             {
-                SetupValidators(_fengShuiValidators, item.Key);
                 result.AddRange(await GetFengShuiNumberByCarrierAsync(item.Key));
             }
 
@@ -40,9 +40,11 @@ namespace FengShuiNumber.Services
             var result = new List<string>();
             do
             {
-                var numbers = await _numberRepository.GetByCarrierAsync(networkCarrier, batchSize, index);
-                inprocessCount = numbers.Count();
-                var fengshuiNumbers = Validate(numbers.Select(x=>x.Number));
+                var numberData = await _numberRepository.GetByCarrierAsync(networkCarrier, batchSize, index);
+                inprocessCount = numberData.Count();
+                var numbers = numberData.Select(x => x.Number);
+
+                var fengshuiNumbers = Filter(numbers, networkCarrier);
                 result.AddRange(fengshuiNumbers);
 
                 index++;
@@ -51,60 +53,15 @@ namespace FengShuiNumber.Services
             return result;
         }
 
-        private IEnumerable<string> Validate(IEnumerable<string> numbers)
+        private IEnumerable<string> Filter(IEnumerable<string> numbers, string networkCarrier)
         {
-            foreach (var validator in _fengShuiValidators)
+            numbers = _fengShuiFilterComposer.Filter(new FilterInput
             {
-                numbers = validator.Validate(numbers);
-                if (!numbers.Any())
-                    break;
-            }
+                Numbers = numbers,
+                NetworkCarrier = networkCarrier
+            });
 
             return numbers;
-        }
-
-        private IEnumerable<IFengShuiValidator> SetupValidators(IEnumerable<IFengShuiValidator> validators, string networkCarrier)
-        {
-            foreach (var item in _fengShuiValidators)
-            {
-                var validatorType = item.GetType().Name;
-                switch (validatorType)
-                {
-                    case nameof(FengShuiRateValidator):
-                        item.SetCondition(new ConditionInput
-                        {
-                            Condition = _settings.FengShuiRate
-                        });
-                        item.ConditionPriority = 1;
-                        break;
-                    case nameof(HeaderValidator):
-                        item.SetCondition(new ConditionInput
-                        {
-                            Condition = _settings.HeadNumbers.FirstOrDefault(x=>x.Key.Equals(networkCarrier, StringComparison.OrdinalIgnoreCase)).Value
-                        });
-                        item.ConditionPriority = 1;
-                        break;
-                    case nameof(NiceLastPairValidator):
-                        item.SetCondition(new ConditionInput
-                        {
-                            Condition = _settings.NicePairNumbers
-                        });
-                        item.ConditionPriority = 1;
-                        break;
-                    case nameof(TabooPairValidator):
-                        item.SetCondition(new ConditionInput
-                        {
-                            Condition = _settings.TabooPairNumbers
-                        });
-                        item.ConditionPriority = 1;
-                        break;
-                    default:
-                        break;
-                }
-                validators.OrderBy(x => x.ConditionPriority);
-            }
-
-            return validators;
         }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using FengShuiNumber.Dtos;
 using FengShuiNumber.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace FengShuiNumber.Services
 {
-    public class FengShuiRateValidator : IFengShuiValidator
+    public class FengShuiRateFilter : IFengShuiFilter
     {
         private int _priority;
         private IEnumerable<decimal> _rates;
-        public FengShuiRateValidator()
+        private readonly FengShuiNumberConfiguration _settings;
+        public FengShuiRateFilter(IOptionsSnapshot<FengShuiNumberConfiguration> optionsSnapshot)
         {
-
+            _settings = optionsSnapshot.Value;
+            Setup();
         }
 
         public int ConditionPriority 
@@ -18,17 +21,19 @@ namespace FengShuiNumber.Services
             set => _priority = value; 
         }
 
-        public void SetCondition(ConditionInput condition)
-        {
-            _rates = ConvertFengShuiRate(condition.Condition as IEnumerable<string>);
-        }
-
-        public IEnumerable<string> Validate(IEnumerable<string> numbers)
+        public IEnumerable<string> DoFilter(FilterInput input)
         {
             if (_rates == null)
                 throw new ArgumentNullException("feng shui rates are not set");
 
-            return numbers = numbers.Where(x => HasFengshuiRate(x));
+            var numbers = input.Numbers.Where(x => HasFengshuiRate(x));
+
+            return numbers;
+        }
+
+        void Setup()
+        {
+            _rates = ConvertFengShuiRate(_settings.FengShuiRate);
         }
 
         private bool HasFengshuiRate(string number)
@@ -45,7 +50,7 @@ namespace FengShuiNumber.Services
             foreach (var rate in rates)
             {
                 var parts = rate.Split("/").Select(x => decimal.Parse(x)).ToArray();
-                yield return parts[0] / parts[1];
+                yield return (parts[0] / parts[1]);
             }
         }
     }

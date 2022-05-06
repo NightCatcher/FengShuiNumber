@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using FengShuiNumber;
 using FengShuiNumber.Data;
+using FengShuiNumber.FengshuiFilter;
+using FengShuiNumber.FengshuiFilter.Interfaces;
 using FengShuiNumber.Repositories;
 using FengShuiNumber.Repositories.Interfaces;
 using FengShuiNumber.Services;
@@ -26,10 +28,11 @@ services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 services.AddScoped<IDataSeeder, DataSeeder>();
-services.AddScoped<IFengShuiValidator, FengShuiRateValidator>();
-services.AddScoped<IFengShuiValidator, HeaderValidator>();
-services.AddScoped<IFengShuiValidator, NiceLastPairValidator>();
-services.AddScoped<IFengShuiValidator, TabooPairValidator>();
+services.AddScoped<IFengShuiFilter, FengShuiRateFilter>();
+services.AddScoped<IFengShuiFilter, HeaderNumberFilter>();
+services.AddScoped<IFengShuiFilter, NiceLastPairFilter>();
+services.AddScoped<IFengShuiFilter, TabooPairFilter>();
+services.AddScoped<IFengShuiFilterComposer, FengShuiFilterComposer>();
 services.AddScoped<IPhoneNumberRepository, PhoneNumberRepository>();
 services.AddScoped<IFengShuiNumberService, FengShuiNumberService>();
 
@@ -47,7 +50,7 @@ if(fengShuiNumbers == null || !fengShuiNumbers.Any())
 else
     Console.WriteLine(String.Join('\n', fengShuiNumbers));
 
-Console.WriteLine("Try again? y/n");
+Console.WriteLine("Try again? [y/n]");
 var answer = Console.ReadLine();
 if (answer.Equals("y", StringComparison.OrdinalIgnoreCase))
     goto CheckFengShuiNumber;
