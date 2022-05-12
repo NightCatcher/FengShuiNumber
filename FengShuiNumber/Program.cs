@@ -47,9 +47,14 @@ var numberService = serviceProvider.GetRequiredService<IFengShuiNumberService>()
 CheckFengShuiNumber:
 var fengShuiNumbers = await numberService.GetFengShuiNumberAsync();
 if(fengShuiNumbers == null || !fengShuiNumbers.Any())
+{
     Console.WriteLine("There no feng shui number");
+}
 else
+{
+    Console.WriteLine($"There are {fengShuiNumbers.Count()} feng shui number:");
     Console.WriteLine(String.Join('\n', fengShuiNumbers));
+}
 
 Console.WriteLine("Try again? [y/n]");
 var answer = Console.ReadLine();

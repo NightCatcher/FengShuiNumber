@@ -12,8 +12,15 @@ namespace FengShuiNumber.FengshuiFilter
             _filters = fengShuiFilters.ToList();
         }
 
+        public FengShuiFilterComposer()
+        {
+
+        }
+
         public IFengShuiFilterComposer AddFilter(IFengShuiFilter filter)
         {
+            if (_filters == null)
+                _filters = new List<IFengShuiFilter>();
             _filters.Add(filter);
             return this;
         }
@@ -22,7 +29,7 @@ namespace FengShuiNumber.FengshuiFilter
         {
             if(!_filters.Any())
             {
-                Console.WriteLine("There no filter is set");
+                Console.WriteLine("There's no filter is set");
             }
 
             _filters = _filters.OrderBy(x => x.ConditionPriority).ToList();

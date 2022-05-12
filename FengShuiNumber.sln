@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FengShuiNumber", "FengShuiNumber\FengShuiNumber.csproj", "{944154E8-6F3F-4266-90B7-8B58C6430C6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FengShuiNumber", "FengShuiNumber\FengShuiNumber.csproj", "{944154E8-6F3F-4266-90B7-8B58C6430C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FengShuiNumber.Test", "FengShuiNumber.Test\FengShuiNumber.Test.csproj", "{4AD01E64-B46A-4A54-9AAF-F53DBE9E6CC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{944154E8-6F3F-4266-90B7-8B58C6430C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{944154E8-6F3F-4266-90B7-8B58C6430C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{944154E8-6F3F-4266-90B7-8B58C6430C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AD01E64-B46A-4A54-9AAF-F53DBE9E6CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD01E64-B46A-4A54-9AAF-F53DBE9E6CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD01E64-B46A-4A54-9AAF-F53DBE9E6CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD01E64-B46A-4A54-9AAF-F53DBE9E6CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

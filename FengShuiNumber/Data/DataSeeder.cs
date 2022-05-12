@@ -24,19 +24,19 @@ namespace FengShuiNumber.Data
             {
                 //viettel
                 new PhoneNumber { NetworkCarrier = "Viettel", Number = "0864813549" },
-                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0864813549" },
-                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0964813545" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0864613549" },
+                new PhoneNumber { NetworkCarrier = "Viettel", Number = "0964813575" },
                 new PhoneNumber { NetworkCarrier = "Viettel", Number = "0964813549" },
                 new PhoneNumber { NetworkCarrier = "Viettel", Number = "0974813566" },
                 //vina
                 new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0894813549" },
-                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0894813549" },
-                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0904813549" },
+                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0894817549" },
+                new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0904883549" },
                 new PhoneNumber { NetworkCarrier = "Vinaphone", Number = "0934813549" },
                 // mobi
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0889613549" },
                 new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0884813549" },
-                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0884813549" },
-                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0914813549" },
+                new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0914843549" },
                 new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0914813549" },
                 new PhoneNumber { NetworkCarrier = "Mobiphone", Number = "0916829926" },
             };
